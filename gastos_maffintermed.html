@@ -392,16 +392,16 @@ textarea.finput { resize: vertical; }
         <div class="card-sub">Sube una foto o imagen del justificante original</div>
       </div>
       <div class="card-body">
-        <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="handleFile(event)">
+        <input type="file" id="fileInput" accept="image/*,application/pdf" style="display:none" onchange="handleFile(event)">
         <input type="file" id="fileCamera" accept="image/*" capture="environment" style="display:none" onchange="handleFile(event)">
         <div class="upload-zone" id="uploadZone">
           <div class="upload-icon">📎</div>
           <p style="margin-bottom:14px"><strong>Adjuntar justificante</strong></p>
           <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
             <button class="btn btn-navy" type="button" onclick="document.getElementById('fileCamera').click()">📷 Hacer foto</button>
-            <button class="btn btn-ghost" type="button" onclick="document.getElementById('fileInput').click()">🖼 Elegir de galería</button>
+            <button class="btn btn-ghost" type="button" onclick="document.getElementById('fileInput').click()">🖼 Galería o PDF</button>
           </div>
-          <p style="font-size:12px;margin-top:10px;color:var(--muted)">JPG, PNG · Máx. 10 MB</p>
+          <p style="font-size:12px;margin-top:10px;color:var(--muted)">JPG, PNG, PDF · Máx. 10 MB</p>
         </div>
         <div class="preview-wrap" id="previewWrap" style="display:none">
           <img id="previewImg" alt="Vista previa del ticket">
@@ -832,7 +832,6 @@ async function generatePDF() {
 
       emailjs.init(EMAILJS_PUBLIC_KEY);
       await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-        to_email:    DESTINO_EMAIL,
         doc_numero:  docNumber,
         solicitante: document.getElementById('nombre').value.trim(),
         descripcion: document.getElementById('descripcion').value.trim(),
